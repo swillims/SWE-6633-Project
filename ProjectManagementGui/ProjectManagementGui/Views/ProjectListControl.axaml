@@ -1,0 +1,81 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ProjectManagementGui.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
+             x:Class="ProjectManagementGui.Views.ProjectListControl"
+             x:DataType="vm:ProjectListViewModel">
+    
+    <UserControl.Styles>
+        <!-- Base Button Style -->
+        <Style Selector="Button.new-project">
+            <Setter Property="Background" Value="#4C4CFF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <!-- Hover -->
+        <Style Selector="Button.new-project:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#5A5AFF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+        </Style>
+
+        <!-- Pressed -->
+        <Style Selector="Button.new-project:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#3838CC"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+        </Style>
+    </UserControl.Styles>
+    
+    <DockPanel Background="#131826" Width="200" HorizontalAlignment="Left">
+        <!-- Header -->
+        <TextBlock
+            Text="Projects"
+            FontWeight="Bold"
+            FontSize="20"
+            Foreground="White"
+            Margin="16,16,16,8"
+            DockPanel.Dock="Top" />
+
+        <!-- New Project Button -->
+        <Button Classes="new-project"
+                Content="+  New Project"
+                Command="{Binding NewProjectCommand}"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                FontWeight="Bold"
+                Margin="16,8,16,16"
+                Height="32"
+                BorderThickness="0"
+                CornerRadius="4"
+                DockPanel.Dock="Bottom">
+        </Button>
+
+        <!-- Projects List -->
+        <ScrollViewer>
+            <ItemsControl ItemsSource="{Binding Projects}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button
+                            Content="{Binding Name}"
+                            CommandParameter="{Binding}"
+                            Background="{Binding IsSelected}"
+                            Foreground="White"
+                            HorizontalContentAlignment="Left"
+                            BorderThickness="0"
+                            Padding="12,6"
+                            Margin="8,2"
+                            CornerRadius="3"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>
