@@ -5,8 +5,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        d:DesignWidth="800"
-        d:DesignHeight="450"
+        d:DesignWidth="1920"
+        d:DesignHeight="1080"
         x:Class="ProjectManagementGui.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
@@ -15,15 +15,65 @@
     <Design.DataContext>
         <vm:MainWindowViewModel />
     </Design.DataContext>
-
-    <!-- Layout -->
-    <DockPanel>
-        <!-- Add your ProjectListControl on the left -->
-        <views:ProjectListControl
-            DataContext="{Binding ProjectListViewModel}"
-            DockPanel.Dock="Left"/>
-
-        <!-- Main content area -->
+    
+    <Grid ColumnDefinitions="Auto,*">
         
-    </DockPanel>
+        
+        <!-- Layout -->
+        <DockPanel Grid.Column="0">
+            <!-- Add your ProjectListControl on the left -->
+            <views:ProjectListControl
+                DataContext="{Binding ProjectListViewModel}"
+                DockPanel.Dock="Left"/>
+
+            <!-- Main content area -->
+        </DockPanel>
+        
+        <StackPanel Grid.Column="1">
+            <Label FontWeight="Bold" FontSize="26" Margin="8,8,0,0" Content="Project Name"/>
+            <Label Margin="8,0" Content="Project Owner:"/>
+            <TabControl>
+                <TabControl.Styles>
+                    <!-- Base TabItem style -->
+                    <Style Selector="TabItem">
+                        <Setter Property="FontSize" Value="18"/>
+                        <Setter Property="Padding" Value="10,6"/>
+                        <Setter Property="MinHeight" Value="40"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+
+                    <!-- Selected tab -->
+                    <Style Selector="TabItem:selected">
+                        <Setter Property="Background" Value="#3838CC"/>
+                        <Setter Property="Foreground" Value="White"/>
+                    </Style>
+
+                    <!-- Hover only if NOT selected -->
+                    <Style Selector="TabItem:pointerover:not(:selected)">
+                        <Setter Property="Background" Value="#5050E0"/>
+                    </Style>
+
+                    <!-- Ensure selected stays purple even when hovered -->
+                    <Style Selector="TabItem:selected:pointerover">
+                        <Setter Property="Background" Value="#3838CC"/>
+                    </Style>
+                </TabControl.Styles>
+
+                <TabItem Header="General Info" Margin="8,0,0,0">
+                    <views:GeneralInfoControl DataContext="{Binding GeneralInfoViewModel}" />
+                </TabItem>
+
+                <TabItem Header="Requirements &amp; Effort">
+                    <!-- Content -->
+                </TabItem>
+
+                <TabItem Header="Dashboard">
+                    <!-- Content -->
+                </TabItem>
+            </TabControl>
+        </StackPanel>
+    </Grid>
+
+    
 </Window>
