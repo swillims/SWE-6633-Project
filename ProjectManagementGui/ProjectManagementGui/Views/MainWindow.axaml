@@ -29,47 +29,125 @@
             <!-- Main content area -->
         </DockPanel>
         
-        <StackPanel Grid.Column="1">
-            <Label FontWeight="Bold" FontSize="26" Margin="8,8,0,0" Content="Project Name"/>
-            <Label Margin="8,0" Content="Project Owner:"/>
-            <TabControl>
+        <StackPanel Grid.Column="1" Background="#F9FAFB">
+            <!-- Header Section -->
+            <StackPanel Margin="32,20,32,0">
+                <TextBlock Text="E-commerce Platform"
+                           FontWeight="Bold" 
+                           FontSize="28" 
+                           Foreground="#1F2937"/>
+                <TextBlock Text="Project Owner: Alice Johnson"
+                           FontSize="14"
+                           Foreground="#6B7280"
+                           Margin="0,4,0,0"/>
+            </StackPanel>
+
+            <!-- Tab Control -->
+            <TabControl Margin="32,20,32,0" Background="Transparent" BorderThickness="0">
                 <TabControl.Styles>
+                    <!-- Remove default TabControl border -->
+                    <Style Selector="TabControl">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Padding" Value="0"/>
+                    </Style>
+
+                    <!-- Style the tab strip (container for tabs) -->
+                    <Style Selector="TabControl > Border">
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                    </Style>
+
                     <!-- Base TabItem style -->
                     <Style Selector="TabItem">
-                        <Setter Property="FontSize" Value="18"/>
-                        <Setter Property="Padding" Value="10,6"/>
-                        <Setter Property="MinHeight" Value="40"/>
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="CornerRadius" Value="10"/>
+                        <Setter Property="FontSize" Value="13"/>
+                        <Setter Property="FontWeight" Value="Medium"/>
+                        <Setter Property="Padding" Value="12,6"/>
+                        <Setter Property="Margin" Value="0,0,8,0"/>
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="Foreground" Value="#4B5563"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="#E5E7EB"/>
+                        <Setter Property="CornerRadius" Value="6"/>
+                    </Style>
+
+                    <!-- Remove focus adorner that creates the underline -->
+                    <Style Selector="TabItem">
+                        <Setter Property="(KeyboardNavigation.TabNavigation)" Value="Local"/>
                     </Style>
 
                     <!-- Selected tab -->
                     <Style Selector="TabItem:selected">
-                        <Setter Property="Background" Value="#3838CC"/>
+                        <Setter Property="Background" Value="#5B6FE8"/>
                         <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="BorderBrush" Value="#5B6FE8"/>
                     </Style>
 
-                    <!-- Hover only if NOT selected -->
+                    <!-- Hover on unselected tabs -->
                     <Style Selector="TabItem:pointerover:not(:selected)">
-                        <Setter Property="Background" Value="#5050E0"/>
+                        <Setter Property="Background" Value="#F3F4F6"/>
+                        <Setter Property="BorderBrush" Value="#D1D5DB"/>
                     </Style>
 
-                    <!-- Ensure selected stays purple even when hovered -->
+                    <!-- Ensure selected stays styled even when hovered -->
                     <Style Selector="TabItem:selected:pointerover">
-                        <Setter Property="Background" Value="#3838CC"/>
+                        <Setter Property="Background" Value="#5B6FE8"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="BorderBrush" Value="#5B6FE8"/>
+                    </Style>
+
+                    <!-- Add icon spacing -->
+                    <Style Selector="TabItem > StackPanel">
+                        <Setter Property="Orientation" Value="Horizontal"/>
+                        <Setter Property="Spacing" Value="8"/>
                     </Style>
                 </TabControl.Styles>
 
-                <TabItem Header="General Info" Margin="8,0,0,0">
-                    <views:GeneralInfoControl DataContext="{Binding GeneralInfoViewModel}" />
+                <!-- General Info Tab -->
+                <TabItem>
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <PathIcon Data="M13 2L3 14h10l-1 8 10-12H12l1-8z" 
+                                      Width="16" 
+                                      Height="16"
+                                      Foreground="{Binding $parent[TabItem].Foreground}"/>
+                            <TextBlock Text="General Info" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <ScrollViewer>
+                        <views:GeneralInfoControl DataContext="{Binding GeneralInfoViewModel}" />
+                    </ScrollViewer>
                 </TabItem>
 
-                <TabItem Header="Requirements &amp; Effort">
-                    <!-- Content -->
+                <!-- Requirements & Effort Tab -->
+                <TabItem>
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <PathIcon Data="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" 
+                                      Width="16" 
+                                      Height="16"
+                                      Foreground="{Binding $parent[TabItem].Foreground}"/>
+                            <TextBlock Text="Requirements &amp; Effort" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <!-- Content here -->
+                    <ScrollViewer>
+                        <views:RequirementsEffortControl DataContext="{Binding RequirementsEffortViewModel}" />
+                    </ScrollViewer>
                 </TabItem>
 
-                <TabItem Header="Dashboard">
-                    <!-- Content -->
+                <!-- Dashboard Tab -->
+                <TabItem>
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <PathIcon Data="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" 
+                                      Width="16" 
+                                      Height="16"
+                                      Foreground="{Binding $parent[TabItem].Foreground}"/>
+                            <TextBlock Text="Dashboard" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <!-- Content here -->
+                    <views:DashboardControl DataContext="{Binding DashboardViewModel}" />
                 </TabItem>
             </TabControl>
         </StackPanel>

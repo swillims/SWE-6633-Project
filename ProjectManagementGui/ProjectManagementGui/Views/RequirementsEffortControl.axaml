@@ -1,0 +1,268 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ProjectManagementGui.Views.RequirementsEffortControl">
+      <Grid Margin="20">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <!-- Header with Add Button -->
+    <Grid Grid.Row="0" Margin="0 0 0 20">
+      <Button Content="+ Add Requirement"
+              Background="#5B6FE8"
+              Foreground="White"
+              Padding="16 8"
+              CornerRadius="4"
+              FontWeight="SemiBold"
+              HorizontalAlignment="Right"/>
+    </Grid>
+
+    <!-- Functional Requirements Section -->
+    <StackPanel Grid.Row="1" Margin="0 0 0 30">
+      <TextBlock Text="Functional Requirements"
+                 FontSize="18"
+                 FontWeight="SemiBold"
+                 Margin="0 0 0 16"
+                 Foreground="#1F2937"/>
+      
+      <Grid ColumnDefinitions="*,*" RowDefinitions="Auto">
+        <Grid.Styles>
+          <Style Selector="Grid > Border">
+            <Setter Property="Margin" Value="0 0 16 0"/>
+          </Style>
+          <Style Selector="Grid > Border:nth-last-child(1)">
+            <Setter Property="Margin" Value="0"/>
+          </Style>
+        </Grid.Styles>
+
+        <!-- User Authentication Card -->
+        <Border Grid.Column="0"
+                Background="White"
+                BorderBrush="#E5E7EB"
+                BorderThickness="1"
+                CornerRadius="8"
+                Padding="20"
+                BoxShadow="0 1 2 0 #10000000">
+          <StackPanel>
+            <!-- Header -->
+            <Grid Margin="0 0 0 16" ColumnDefinitions="*,Auto,Auto">
+              <StackPanel Grid.Column="0" Spacing="4">
+                <TextBlock Text="User Authentication"
+                           FontSize="15"
+                           FontWeight="SemiBold"
+                           Foreground="#1F2937"/>
+                <Border Background="#DBEAFE"
+                        CornerRadius="4"
+                        Padding="8 2"
+                        HorizontalAlignment="Left">
+                  <TextBlock Text="FUNCTIONAL"
+                             FontSize="11"
+                             FontWeight="SemiBold"
+                             Foreground="#1E40AF"/>
+                </Border>
+              </StackPanel>
+              <TextBlock Grid.Column="1"
+                         Text="60 hrs"
+                         FontSize="14"
+                         FontWeight="SemiBold"
+                         Foreground="#6B7280"
+                         VerticalAlignment="Top"
+                         Margin="0 0 12 0"/>
+              <Button Grid.Column="2"
+                      Content="🗑"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      Foreground="#EF4444"
+                      Padding="4"
+                      VerticalAlignment="Top"/>
+            </Grid>
+
+            <!-- Breakdown -->
+            <StackPanel Spacing="6">
+              <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Text="Requirements Analysis:" FontSize="13" Foreground="#6B7280"/>
+                <TextBlock Grid.Column="1" Text="8 hrs" FontSize="13" Foreground="#6B7280"/>
+              </Grid>
+              <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Text="Designing:" FontSize="13" Foreground="#6B7280"/>
+                <TextBlock Grid.Column="1" Text="16 hrs" FontSize="13" Foreground="#6B7280"/>
+              </Grid>
+              <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Text="Coding:" FontSize="13" Foreground="#6B7280"/>
+                <TextBlock Grid.Column="1" Text="24 hrs" FontSize="13" Foreground="#6B7280"/>
+              </Grid>
+              <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Text="Testing:" FontSize="13" Foreground="#6B7280"/>
+                <TextBlock Grid.Column="1" Text="12 hrs" FontSize="13" Foreground="#6B7280"/>
+              </Grid>
+            </StackPanel>
+
+            <!-- Log Effort Link -->
+            <Button Content="Log Effort"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Foreground="#5B6FE8"
+                    FontSize="13"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalAlignment="Left"
+                    Margin="0 12 0 0"
+                    Cursor="Hand"/>
+          </StackPanel>
+        </Border>
+
+        <!-- Product Catalog Card -->
+        <Border Grid.Column="1"
+                Background="White"
+                BorderBrush="#E5E7EB"
+                BorderThickness="1"
+                CornerRadius="8"
+                Padding="20"
+                BoxShadow="0 1 2 0 #10000000">
+          <StackPanel>
+            <!-- Header -->
+            <Grid Margin="0 0 0 16" ColumnDefinitions="*,Auto,Auto">
+              <StackPanel Grid.Column="0" Spacing="4">
+                <TextBlock Text="Product Catalog"
+                           FontSize="15"
+                           FontWeight="SemiBold"
+                           Foreground="#1F2937"/>
+                <Border Background="#DBEAFE"
+                        CornerRadius="4"
+                        Padding="8 2"
+                        HorizontalAlignment="Left">
+                  <TextBlock Text="FUNCTIONAL"
+                             FontSize="11"
+                             FontWeight="SemiBold"
+                             Foreground="#1E40AF"/>
+                </Border>
+              </StackPanel>
+              <TextBlock Grid.Column="1"
+                         Text="30 hrs"
+                         FontSize="14"
+                         FontWeight="SemiBold"
+                         Foreground="#6B7280"
+                         VerticalAlignment="Top"
+                         Margin="0 0 12 0"/>
+              <Button Grid.Column="2"
+                      Content="🗑"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      Foreground="#EF4444"
+                      Padding="4"
+                      VerticalAlignment="Top"/>
+            </Grid>
+
+            <!-- Breakdown -->
+            <StackPanel Spacing="6">
+              <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Text="Requirements Analysis:" FontSize="13" Foreground="#6B7280"/>
+                <TextBlock Grid.Column="1" Text="10 hrs" FontSize="13" Foreground="#6B7280"/>
+              </Grid>
+              <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Text="Coding:" FontSize="13" Foreground="#6B7280"/>
+                <TextBlock Grid.Column="1" Text="20 hrs" FontSize="13" Foreground="#6B7280"/>
+              </Grid>
+            </StackPanel>
+
+            <!-- Log Effort Link -->
+            <Button Content="Log Effort"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Foreground="#5B6FE8"
+                    FontSize="13"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalAlignment="Left"
+                    Margin="0 12 0 0"
+                    Cursor="Hand"/>
+          </StackPanel>
+        </Border>
+      </Grid>
+    </StackPanel>
+
+    <!-- Non-Functional Requirements Section -->
+    <StackPanel Grid.Row="2" Margin="0 0 0 30">
+      <TextBlock Text="Non-Functional Requirements"
+                 FontSize="18"
+                 FontWeight="SemiBold"
+                 Margin="0 0 0 16"
+                 Foreground="#1F2937"/>
+      
+      <Grid ColumnDefinitions="*,*" RowDefinitions="Auto">
+        <!-- Sub-second page load time Card -->
+        <Border Grid.Column="0"
+                Background="White"
+                BorderBrush="#E5E7EB"
+                BorderThickness="1"
+                CornerRadius="8"
+                Padding="20"
+                BoxShadow="0 1 2 0 #10000000">
+          <StackPanel>
+            <!-- Header -->
+            <Grid Margin="0 0 0 16" ColumnDefinitions="*,Auto,Auto">
+              <StackPanel Grid.Column="0" Spacing="4">
+                <TextBlock Text="Sub-second page load time"
+                           FontSize="15"
+                           FontWeight="SemiBold"
+                           Foreground="#1F2937"/>
+                <Border Background="#FEF3C7"
+                        CornerRadius="4"
+                        Padding="8 2"
+                        HorizontalAlignment="Left">
+                  <TextBlock Text="NON-FUNCTIONAL"
+                             FontSize="11"
+                             FontWeight="SemiBold"
+                             Foreground="#92400E"/>
+                </Border>
+              </StackPanel>
+              <TextBlock Grid.Column="1"
+                         Text="45 hrs"
+                         FontSize="14"
+                         FontWeight="SemiBold"
+                         Foreground="#6B7280"
+                         VerticalAlignment="Top"
+                         Margin="0 0 12 0"/>
+              <Button Grid.Column="2"
+                      Content="🗑"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      Foreground="#EF4444"
+                      Padding="4"
+                      VerticalAlignment="Top"/>
+            </Grid>
+
+            <!-- Breakdown -->
+            <StackPanel Spacing="6">
+              <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Text="Coding:" FontSize="13" Foreground="#6B7280"/>
+                <TextBlock Grid.Column="1" Text="30 hrs" FontSize="13" Foreground="#6B7280"/>
+              </Grid>
+              <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Text="Testing:" FontSize="13" Foreground="#6B7280"/>
+                <TextBlock Grid.Column="1" Text="15 hrs" FontSize="13" Foreground="#6B7280"/>
+              </Grid>
+            </StackPanel>
+
+            <!-- Log Effort Link -->
+            <Button Content="Log Effort"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Foreground="#5B6FE8"
+                    FontSize="13"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalAlignment="Left"
+                    Margin="0 12 0 0"
+                    Cursor="Hand"/>
+          </StackPanel>
+        </Border>
+      </Grid>
+    </StackPanel>
+  </Grid>
+</UserControl>

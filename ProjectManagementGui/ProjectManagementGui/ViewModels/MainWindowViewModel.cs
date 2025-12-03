@@ -4,6 +4,8 @@ public partial class MainWindowViewModel : ViewModelBase
 {
     public ProjectListViewModel ProjectListViewModel { get; set; }
     public GeneralInfoViewModel GeneralInfoViewModel { get; set; }
+    public RequirementsEffortViewModel RequirementsEffortViewModel { get; set; }
+    public DashboardViewModel DashboardViewModel { get; set; }
 
     public MainWindowViewModel()
     {
@@ -28,6 +30,14 @@ public partial class MainWindowViewModel : ViewModelBase
             }
         };
         
-        
+        RequirementsEffortViewModel = new RequirementsEffortViewModel()
+        {
+            
+        };
+
+        DashboardViewModel = new DashboardViewModel()
+        {
+            
+        };
     }
 }

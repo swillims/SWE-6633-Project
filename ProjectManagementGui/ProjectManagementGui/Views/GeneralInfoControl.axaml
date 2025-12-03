@@ -3,206 +3,227 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="using:ProjectManagementGui.ViewModels"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
              x:DataType="vm:GeneralInfoViewModel"
              x:Class="ProjectManagementGui.Views.GeneralInfoControl">
     
-    <StackPanel>
-        <!-- Project Details-->
-        <Border
-            Background="#F9FAFBFF"
-            CornerRadius="8"
-            Padding="16"
-            BorderThickness="1"
-            BorderBrush="#E0E0E0"
-            Margin="10">
-
-            <Grid RowDefinitions="Auto,Auto"
-                  ColumnDefinitions="*">
-
-                <!-- HEADER ROW -->
-                <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto" VerticalAlignment="Center">
-
-                    <!-- Emoji + Title -->
+    <StackPanel Margin="0,20,0,0" Spacing="16">
+        
+        <!-- Project Details -->
+        <Border Background="White"
+                CornerRadius="8"
+                Padding="24"
+                BorderThickness="1"
+                BorderBrush="#E5E7EB">
+            
+            <StackPanel Spacing="16">
+                
+                <!-- Header -->
+                <Grid ColumnDefinitions="*,Auto">
                     <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
-                        <TextBlock Text="ℹ️"
-                                   FontSize="18"
-                                   VerticalAlignment="Center"/>
+                        <PathIcon Data="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                  Width="20"
+                                  Height="20"
+                                  Foreground="#6B7280"/>
                         <TextBlock Text="Project Details"
-                                   FontWeight="Bold"
-                                   FontSize="16"
-                                   VerticalAlignment="Center"/>
+                                   FontWeight="SemiBold"
+                                   FontSize="15"
+                                   Foreground="#1F2937"/>
                     </StackPanel>
-
-                    <!-- Spacer -->
-                    <Border Grid.Column="1"/>
-
-                    <!-- Edit link -->
-                    <TextBlock Grid.Column="2"
+                    
+                    <TextBlock Grid.Column="1"
                                Text="Edit"
-                               Foreground="#6C63FF"
+                               Foreground="#5B6FE8"
                                FontSize="14"
-                               VerticalAlignment="Center"
-                               Cursor="Hand"/>
+                               Cursor="Hand"
+                               VerticalAlignment="Center"/>
                 </Grid>
-
-                <!-- CONTENT -->
-                <StackPanel Grid.Row="1" Margin="0,16,0,0" Spacing="12">
+                
+                <!-- Content -->
+                <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,*">
                     
                     <!-- Project Owner -->
-                    <StackPanel Spacing="2">
+                    <StackPanel Grid.Row="0" Grid.Column="0" Spacing="4" Margin="0,0,40,16">
                         <TextBlock Text="Project Owner"
                                    FontWeight="SemiBold"
-                                   FontSize="13"/>
-                        <TextBlock Text="Alice Johnson"
-                                   FontSize="13"/>
+                                   FontSize="13"
+                                   Foreground="#374151"/>
+                        <TextBlock Text="{Binding ProjectOwner}"
+                                   FontSize="13"
+                                   Foreground="#6B7280"/>
                     </StackPanel>
-
+                    
                     <!-- Description -->
-                    <StackPanel Spacing="2">
+                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Spacing="4">
                         <TextBlock Text="Description"
                                    FontWeight="SemiBold"
-                                   FontSize="13"/>
-                        <TextBlock Text="A next-generation online shopping platform with AI-powered recommendations and a seamless checkout experience."
                                    FontSize="13"
+                                   Foreground="#374151"/>
+                        <TextBlock Text="{Binding Description}"
+                                   FontSize="13"
+                                   Foreground="#6B7280"
                                    TextWrapping="Wrap"/>
                     </StackPanel>
-
-                </StackPanel>
-
-            </Grid>
+                </Grid>
+                
+            </StackPanel>
         </Border>
         
-        <!-- Team Members-->
-        <Border
-            Background="#F9FAFB"
-            CornerRadius="8"
-            Padding="16"
-            BorderThickness="1"
-            BorderBrush="#E0E0E0"
-            Margin="10">
-
+        <!-- Team Members -->
+        <Border Background="White"
+                CornerRadius="8"
+                Padding="24"
+                BorderThickness="1"
+                BorderBrush="#E5E7EB">
+            
             <StackPanel Spacing="16">
-
-                <!-- HEADER -->
+                
+                <!-- Header -->
                 <StackPanel Orientation="Horizontal" Spacing="8">
-                    <TextBlock Text="👥"
-                               FontSize="18"
-                               VerticalAlignment="Center"/>
+                    <PathIcon Data="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                              Width="20"
+                              Height="20"
+                              Foreground="#6B7280"/>
                     <TextBlock Text="Team Members"
-                               FontWeight="Bold"
-                               FontSize="16"
-                               VerticalAlignment="Center"/>
+                               FontWeight="SemiBold"
+                               FontSize="15"
+                               Foreground="#1F2937"/>
                 </StackPanel>
-
-                <!-- SCROLLABLE LIST -->
-                <ScrollViewer MaxHeight="100"> <!-- adjust height if you want -->
-                    <ItemsControl>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid ColumnDefinitions="*,Auto"
-                                      Background="#FFFFFF"
-                                      Margin="0,0,0,8">
-                                    <TextBlock Text="{Binding}" VerticalAlignment="Center"/>
-                                    <TextBlock Grid.Column="1"
-                                               Text="🗑️"
-                                               Cursor="Hand"
-                                               VerticalAlignment="Center"/>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </ScrollViewer>
-
-                <!-- Add new member row -->
+                
+                <!-- Members List -->
+                <ItemsControl ItemsSource="{Binding TeamMembers}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Spacing="8"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+    
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="*,Auto" Height="36">
+                                <TextBlock Text="{Binding}"
+                                           FontSize="13"
+                                           Foreground="#374151"
+                                           VerticalAlignment="Center"/>
+                                <Button Grid.Column="1"
+                                        Content="🗑"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Foreground="#EF4444"
+                                        Cursor="Hand"
+                                        Padding="4"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                
+                <!-- Add Member Input -->
                 <Grid ColumnDefinitions="*,Auto">
-                    <TextBox Watermark="Add new member"/>
+                    <TextBox Grid.Column="0"
+                             Watermark="Add new member"
+                             Height="36"
+                             BorderBrush="#D1D5DB"
+                             CornerRadius="4"
+                             Margin="0,0,8,0"/>
                     <Button Grid.Column="1"
-                            Background="#94D3A2"
+                            Background="#6EE7B7"
                             Foreground="White"
-                            Padding="10,4"
+                            Height="36"
+                            Padding="16,0"
                             CornerRadius="4"
-                            Margin="10,0,0,0">
+                            BorderThickness="0"
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Cursor="Hand">
                         <StackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock Text="➕"/>
-                            <TextBlock Text="Add"/>
+                            <TextBlock Text="+" FontSize="16" VerticalAlignment="Center"/>
+                            <TextBlock Text="Add" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                 </Grid>
-
+                
             </StackPanel>
         </Border>
-
+        
         <!-- Risks -->
-        <Border
-            Background="#F9FAFB"
-            CornerRadius="8"
-            Padding="16"
-            BorderThickness="1"
-            BorderBrush="#E0E0E0"
-            Margin="10">
-
+        <Border Background="White"
+                CornerRadius="8"
+                Padding="24"
+                BorderThickness="1"
+                BorderBrush="#E5E7EB">
+            
             <StackPanel Spacing="16">
-
-                <!-- HEADER -->
+                
+                <!-- Header -->
                 <TextBlock Text="Risks"
-                           FontWeight="Bold"
-                           FontSize="16"/>
-
-                <!-- SCROLLABLE RISK LIST -->
-                <ScrollViewer MaxHeight="150"> <!-- adjust height -->
-                    <ItemsControl ItemsSource="{Binding Risks}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid ColumnDefinitions="*,Auto,Auto"
-                                      Background="#FFFFFF"
-                                      Margin="0,0,0,8">
-
-                                    <!-- Risk Description -->
-                                    <TextBlock Text="{Binding Description}"
-                                               VerticalAlignment="Center"/>
-
-                                    <!-- Status Dropdown -->
-                                    <ComboBox Grid.Column="1"
-                                              Width="120"
-                                              SelectedIndex="0">
-                                        <ComboBoxItem Content="Open"/>
-                                        <ComboBoxItem Content="InProgress"/>
-                                        <ComboBoxItem Content="Closed"/>
-                                    </ComboBox>
-
-                                    <!-- Delete -->
-                                    <TextBlock Grid.Column="2"
-                                               Text="🗑️"
-                                               Margin="8,0,0,0"
-                                               Cursor="Hand"
-                                               VerticalAlignment="Center"/>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-
-                    </ItemsControl>
-                </ScrollViewer>
-
-                <!-- Add New Risk -->
+                           FontWeight="SemiBold"
+                           FontSize="15"
+                           Foreground="#1F2937"/>
+                
+                <!-- Risks List -->
+                <ItemsControl ItemsSource="{Binding Risks}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Spacing="8"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+    
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="*,Auto,Auto" Height="36">
+                                <TextBlock Text="{Binding Description}"
+                                           FontSize="13"
+                                           Foreground="#374151"
+                                           VerticalAlignment="Center"/>
+                                <ComboBox Grid.Column="1"
+                                          Width="120"
+                                          Height="32"
+                                          SelectedIndex="0"
+                                          FontSize="12"
+                                          Margin="12,0,12,0">
+                                    <ComboBoxItem Content="Open"/>
+                                    <ComboBoxItem Content="In Progress"/>
+                                    <ComboBoxItem Content="Closed"/>
+                                </ComboBox>
+                                <Button Grid.Column="2"
+                                        Content="🗑"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Foreground="#EF4444"
+                                        Cursor="Hand"
+                                        Padding="4"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                
+                <!-- Add Risk Input -->
                 <Grid ColumnDefinitions="*,Auto">
-                    <TextBox Watermark="Describe a new risk"/>
-
+                    <TextBox Grid.Column="0"
+                             Watermark="Describe a new risk"
+                             Height="36"
+                             BorderBrush="#D1D5DB"
+                             CornerRadius="4"
+                             Margin="0,0,8,0"/>
                     <Button Grid.Column="1"
-                            Background="#94D3A2"
+                            Background="#6EE7B7"
                             Foreground="White"
-                            Padding="10,4"
+                            Height="36"
+                            Padding="16,0"
                             CornerRadius="4"
-                            Margin="10,0,0,0">
+                            BorderThickness="0"
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Cursor="Hand">
                         <StackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock Text="➕"/>
-                            <TextBlock Text="Add"/>
+                            <TextBlock Text="+" FontSize="16" VerticalAlignment="Center"/>
+                            <TextBlock Text="Add" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                 </Grid>
-
+                
             </StackPanel>
         </Border>
-
+        
     </StackPanel>
 </UserControl>
