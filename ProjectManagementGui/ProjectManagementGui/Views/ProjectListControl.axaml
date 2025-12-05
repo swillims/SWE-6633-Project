@@ -59,23 +59,17 @@
         </Button>
 
         <!-- Projects List -->
-        <ScrollViewer>
-            <ItemsControl ItemsSource="{Binding Projects}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Button
-                            Content="{Binding Name}"
-                            CommandParameter="{Binding}"
-                            Background="{Binding IsSelected}"
-                            Foreground="White"
-                            HorizontalContentAlignment="Left"
-                            BorderThickness="0"
-                            Padding="12,6"
-                            Margin="8,2"
-                            CornerRadius="3"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+        <ListBox ItemsSource="{Binding Projects}"
+                 SelectedItem="{Binding SelectedProject}"
+                 Background="Transparent"
+                 SelectionChanged="ListBox_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"
+                               Padding="12,6"
+                               Foreground="White"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </DockPanel>
 </UserControl>

@@ -1,4 +1,8 @@
-﻿namespace ProjectManagementGui.ViewModels;
+﻿using System;
+using ProjectManagementGui.Models;
+using ReactiveUI;
+
+namespace ProjectManagementGui.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
@@ -6,38 +10,57 @@ public partial class MainWindowViewModel : ViewModelBase
     public GeneralInfoViewModel GeneralInfoViewModel { get; set; }
     public RequirementsEffortViewModel RequirementsEffortViewModel { get; set; }
     public DashboardViewModel DashboardViewModel { get; set; }
+    
+    public NewProjectPopupViewModel NewProjectPopupViewModel { get; set; }
+    
+    private string _title;
+    private string _projectOwner;
+
+    private const string DefaultTitle = "Project Templat";
+    private const string DefaultOwner = "None";
+    
+    public string Title
+    {
+        get => _title;
+        set => this.RaiseAndSetIfChanged(ref _title, value);
+    }
+
+    public string ProjectOwner
+    {
+        get => _projectOwner;
+        set => this.RaiseAndSetIfChanged(ref _projectOwner, value);
+    }
 
     public MainWindowViewModel()
     {
-        ProjectListViewModel = new ProjectListViewModel();
-        GeneralInfoViewModel = new GeneralInfoViewModel()
-        {
-            Title = "E-commerce Platform",
-            ProjectOwner = "Alice Johnson",
-            Description = "A next-generation online shopping platform...",
-
-            TeamMembers =
-            {
-                "Bob Smith",
-                "Charlie Brown",
-                "Diana Prince"
-            },
-
-            Risks =
-            {
-                new RiskItemViewModel { Description = "Payment gateway integration delay", Status = "In Progress" },
-                new RiskItemViewModel { Description = "Scalability issues during peak load", Status = "Open" }
-            }
-        };
+        Title = DefaultTitle;
+        ProjectOwner = DefaultOwner;
         
-        RequirementsEffortViewModel = new RequirementsEffortViewModel()
-        {
-            
-        };
+        ProjectListViewModel = new ProjectListViewModel(ShowNewProjectPopup,OnProjectSelected);
+        GeneralInfoViewModel = new GeneralInfoViewModel();
+        RequirementsEffortViewModel = new RequirementsEffortViewModel();
+        DashboardViewModel = new DashboardViewModel();
+        NewProjectPopupViewModel = new NewProjectPopupViewModel(CreateProject);
+    }
 
-        DashboardViewModel = new DashboardViewModel()
+    private void ShowNewProjectPopup()
+    {
+        NewProjectPopupViewModel.IsVisible = true;
+    }
+
+    private void CreateProject()
+    {
+        ProjectListViewModel.AddNewProject(
+            NewProjectPopupViewModel.ProjectName, 
+            NewProjectPopupViewModel.ProjectOwner);
+    }
+
+    private void OnProjectSelected()
+    {
+        if (ProjectListViewModel.SelectedProject != null)
         {
-            
-        };
+            Title = ProjectListViewModel.SelectedProject.Name;
+            ProjectOwner = ProjectListViewModel.SelectedProject.Owner;
+        }
     }
 }
