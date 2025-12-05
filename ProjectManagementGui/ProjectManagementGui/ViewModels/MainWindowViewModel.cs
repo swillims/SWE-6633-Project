@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using ProjectManagementGui.Models;
 using ReactiveUI;
 
@@ -61,6 +62,8 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             Title = ProjectListViewModel.SelectedProject.Name;
             ProjectOwner = ProjectListViewModel.SelectedProject.Owner;
+            ProjectItemModel.currentProject = ProjectListViewModel.SelectedProject;
+            //System.Diagnostics.Debug.WriteLine(ProjectItemModel.currentProject.Name);
         }
     }
 }
