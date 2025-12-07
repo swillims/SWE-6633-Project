@@ -18,7 +18,7 @@ public partial class ProjectListControl : UserControl
     {
         if (DataContext is ProjectListViewModel viewModel && 
             e.AddedItems.Count > 0 && 
-            e.AddedItems[0] is ProjectItemModel selectedProject)
+            e.AddedItems[0] is ProjectViewModel selectedProject)
         {
             viewModel.OnProjectSelected();
         }

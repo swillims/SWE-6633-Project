@@ -7,7 +7,7 @@
              x:Class="ProjectManagementGui.Views.NewProjectPopup"
              x:DataType="vm:NewProjectPopupViewModel"
              Width="420"
-             Height="280">
+             Height="400">
     
     
     <UserControl.Styles>
@@ -89,7 +89,7 @@
         <Grid Margin="24" RowDefinitions="Auto,*,Auto">
             <!-- Header -->
             <TextBlock Grid.Row="0"
-                       Text="Create New Project"
+                       Text="Project Details"
                        FontSize="20"
                        FontWeight="Bold"
                        Foreground="White"
@@ -112,6 +112,17 @@
                              Watermark="e.g., John Smith"
                              Height="36"/>
                 </StackPanel>
+
+                <!-- Project Description -->
+                <StackPanel>
+                    <TextBlock Classes="label" Text="Project Description"/>
+                    <TextBox Text="{Binding ProjectDescription}"
+                             Watermark="Brief description of the project..."
+                             Height="80"
+                             AcceptsReturn="True"
+                             TextWrapping="Wrap"
+                             VerticalContentAlignment="Top"/>
+                </StackPanel>
             </StackPanel>
 
             <!-- Buttons -->
@@ -126,7 +137,7 @@
                         Width="80"
                         Height="36"/>
                 <Button Classes="create"
-                        Content="Create"
+                        Content="Submit"
                         Command="{Binding Create}"
                         Width="80"
                         Height="36"/>

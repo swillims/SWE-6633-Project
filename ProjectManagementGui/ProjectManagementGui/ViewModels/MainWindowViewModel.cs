@@ -37,7 +37,7 @@ public partial class MainWindowViewModel : ViewModelBase
         ProjectOwner = DefaultOwner;
         
         ProjectListViewModel = new ProjectListViewModel(ShowNewProjectPopup,OnProjectSelected);
-        GeneralInfoViewModel = new GeneralInfoViewModel();
+        GeneralInfoViewModel = new GeneralInfoViewModel(ShowNewProjectPopup);
         RequirementsEffortViewModel = new RequirementsEffortViewModel();
         DashboardViewModel = new DashboardViewModel();
         NewProjectPopupViewModel = new NewProjectPopupViewModel(CreateProject);
@@ -50,17 +50,34 @@ public partial class MainWindowViewModel : ViewModelBase
 
     private void CreateProject()
     {
-        ProjectListViewModel.AddNewProject(
-            NewProjectPopupViewModel.ProjectName, 
-            NewProjectPopupViewModel.ProjectOwner);
+        if (GeneralInfoViewModel.IsEditing)
+        {
+            ProjectListViewModel.SelectedProject?.UpdateDetails(
+                NewProjectPopupViewModel.ProjectName, 
+                NewProjectPopupViewModel.ProjectOwner,
+                NewProjectPopupViewModel.ProjectDescription);
+            OnProjectSelected();
+            GeneralInfoViewModel.IsEditing =  false;
+        }
+        else
+        {
+            ProjectListViewModel.AddNewProject(
+                NewProjectPopupViewModel.ProjectName, 
+                NewProjectPopupViewModel.ProjectOwner,
+                NewProjectPopupViewModel.ProjectDescription);
+        }
     }
 
     private void OnProjectSelected()
     {
         if (ProjectListViewModel.SelectedProject != null)
         {
-            Title = ProjectListViewModel.SelectedProject.Name;
+            Title = ProjectListViewModel.SelectedProject.Title;
             ProjectOwner = ProjectListViewModel.SelectedProject.Owner;
+<<<<<<< Updated upstream
+=======
+            GeneralInfoViewModel.OnChangeProject(ProjectListViewModel.SelectedProject);
+>>>>>>> Stashed changes
         }
     }
 }

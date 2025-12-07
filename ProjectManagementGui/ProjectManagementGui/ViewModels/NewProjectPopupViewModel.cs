@@ -10,6 +10,7 @@ public class NewProjectPopupViewModel(Action action) : ViewModelBase
 {
     private string _projectName = string.Empty;
     private string _projectOwner = string.Empty;
+    private string _projectDescription = string.Empty;
     private bool _isVisible;
 
     private Action? CreateProject { get; set; } = action;
@@ -40,6 +41,18 @@ public class NewProjectPopupViewModel(Action action) : ViewModelBase
             if (_projectOwner != value)
             {
                 this.RaiseAndSetIfChanged(ref _projectOwner, value);
+            }
+        }
+    }
+    
+    public string ProjectDescription
+    {
+        get => _projectDescription;
+        set
+        {
+            if (_projectOwner != value)
+            {
+                this.RaiseAndSetIfChanged(ref _projectDescription, value);
             }
         }
     }

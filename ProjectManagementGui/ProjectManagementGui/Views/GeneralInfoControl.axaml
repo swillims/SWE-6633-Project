@@ -31,12 +31,18 @@
                                    Foreground="#1F2937"/>
                     </StackPanel>
                     
-                    <TextBlock Grid.Column="1"
-                               Text="Edit"
-                               Foreground="#5B6FE8"
-                               FontSize="14"
-                               Cursor="Hand"
-                               VerticalAlignment="Center"/>
+                    <Button Grid.Column="1"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Padding="0"
+                            Cursor="Hand"
+                            Command="{Binding EditProjectDetails}"
+                            CommandParameter="{Binding}">
+                        <TextBlock Text="Edit"
+                                   Foreground="#5B6FE8"
+                                   FontSize="14"
+                                   VerticalAlignment="Center"/>
+                    </Button>
                 </Grid>
                 
                 <!-- Content -->
@@ -48,7 +54,7 @@
                                    FontWeight="SemiBold"
                                    FontSize="13"
                                    Foreground="#374151"/>
-                        <TextBlock Text="{Binding ProjectOwner}"
+                        <TextBlock Text="{Binding Owner}"
                                    FontSize="13"
                                    Foreground="#6B7280"/>
                     </StackPanel>
@@ -101,7 +107,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid ColumnDefinitions="*,Auto" Height="36">
-                                <TextBlock Text="{Binding}"
+                                <TextBlock Text="{Binding }"
                                            FontSize="13"
                                            Foreground="#374151"
                                            VerticalAlignment="Center"/>
@@ -111,7 +117,9 @@
                                         BorderThickness="0"
                                         Foreground="#EF4444"
                                         Cursor="Hand"
-                                        Padding="4"/>
+                                        Padding="4"
+                                        Command="{Binding $parent[ItemsControl].((vm:GeneralInfoViewModel)DataContext).RemoveTeamMember}"
+                                        CommandParameter="{Binding}" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -124,7 +132,8 @@
                              Height="36"
                              BorderBrush="#D1D5DB"
                              CornerRadius="4"
-                             Margin="0,0,8,0"/>
+                             Margin="0,0,8,0"
+                             Text="{Binding TeamMemberText}"/>
                     <Button Grid.Column="1"
                             Background="#6EE7B7"
                             Foreground="White"
@@ -134,7 +143,8 @@
                             BorderThickness="0"
                             FontSize="13"
                             FontWeight="Medium"
-                            Cursor="Hand">
+                            Cursor="Hand"
+                            Command="{Binding AddTeamMember}">
                         <StackPanel Orientation="Horizontal" Spacing="4">
                             <TextBlock Text="+" FontSize="16" VerticalAlignment="Center"/>
                             <TextBlock Text="Add" VerticalAlignment="Center"/>
@@ -178,7 +188,7 @@
                                 <ComboBox Grid.Column="1"
                                           Width="120"
                                           Height="32"
-                                          SelectedIndex="0"
+                                          SelectedIndex="{Binding Status}"
                                           FontSize="12"
                                           Margin="12,0,12,0">
                                     <ComboBoxItem Content="Open"/>
@@ -191,7 +201,9 @@
                                         BorderThickness="0"
                                         Foreground="#EF4444"
                                         Cursor="Hand"
-                                        Padding="4"/>
+                                        Padding="4"
+                                        Command="{Binding $parent[ItemsControl].((vm:GeneralInfoViewModel)DataContext).RemoveRisk}"
+                                        CommandParameter="{Binding}" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -204,7 +216,8 @@
                              Height="36"
                              BorderBrush="#D1D5DB"
                              CornerRadius="4"
-                             Margin="0,0,8,0"/>
+                             Margin="0,0,8,0"
+                             Text="{Binding RiskText}"/>
                     <Button Grid.Column="1"
                             Background="#6EE7B7"
                             Foreground="White"
@@ -214,7 +227,8 @@
                             BorderThickness="0"
                             FontSize="13"
                             FontWeight="Medium"
-                            Cursor="Hand">
+                            Cursor="Hand"
+                            Command="{Binding AddRisk}">
                         <StackPanel Orientation="Horizontal" Spacing="4">
                             <TextBlock Text="+" FontSize="16" VerticalAlignment="Center"/>
                             <TextBlock Text="Add" VerticalAlignment="Center"/>

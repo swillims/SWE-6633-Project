@@ -7,8 +7,8 @@ namespace ProjectManagementGui.ViewModels;
 
 public class ProjectListViewModel(Action createProjectAction, Action onProjectSelected) : ViewModelBase
 {
-    public ObservableCollection<ProjectItemModel> Projects {get; set; } = new();
-    public ProjectItemModel? SelectedProject { get; set; }
+    public ObservableCollection<ProjectViewModel> Projects {get; set; } = [];
+    public ProjectViewModel? SelectedProject { get; set; }
     
     private Action? CreateNewProjectRequested { get; set; } = createProjectAction;
     
@@ -19,9 +19,9 @@ public class ProjectListViewModel(Action createProjectAction, Action onProjectSe
         CreateNewProjectRequested?.Invoke();
     }
 
-    public void AddNewProject(string projectName,  string projectOwner)
+    public void AddNewProject(string projectName,  string projectOwner, string description)
     {
-        Projects.Add(new ProjectItemModel(projectName, projectOwner));
+        Projects.Add(new ProjectViewModel(projectName, projectOwner, description));
     }
 
     public void OnProjectSelected()
