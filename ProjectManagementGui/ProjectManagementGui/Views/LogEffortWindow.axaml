@@ -1,0 +1,66 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="using:ProjectManagementGui.Views"
+        mc:Ignorable="d"
+        x:Class="ProjectManagementGui.Views.LogEffortWindow"
+        x:DataType="views:LogEffortWindow"
+        Width="420"
+        Height="360"
+        CanResize="False"
+        Title="Log Effort">
+    <Border Background="White" Padding="24">
+        <StackPanel Spacing="16">
+            <StackPanel>
+                <TextBlock Text="Log Effort"
+                           FontWeight="SemiBold"
+                           FontSize="20"
+                           Foreground="#1F2937"/>
+                <TextBlock Text="{Binding RequirementName}"
+                           FontSize="14"
+                           Foreground="#6B7280"/>
+            </StackPanel>
+
+            <StackPanel Spacing="8">
+                <TextBlock Text="Effort Type"
+                           FontWeight="SemiBold"
+                           FontSize="13"
+                           Foreground="#1F2937"/>
+                <ComboBox x:Name="EffortTypeComboBox"
+                          PlaceholderText="Select effort"
+                          ItemsSource="{Binding EffortOptions}"
+                          MinWidth="200"/>
+            </StackPanel>
+
+            <StackPanel Spacing="8">
+                <TextBlock Text="Description"
+                           FontWeight="SemiBold"
+                           FontSize="13"
+                           Foreground="#1F2937"/>
+                <TextBox x:Name="DescriptionBox"
+                         AcceptsReturn="True"
+                         Watermark="Describe what was accomplished…"
+                         MinHeight="120"
+                         TextWrapping="Wrap"/>
+            </StackPanel>
+
+            <TextBlock x:Name="ErrorText"
+                       Foreground="#B91C1C"
+                       FontSize="12"/>
+
+            <StackPanel Orientation="Horizontal"
+                        Spacing="12"
+                        HorizontalAlignment="Right">
+                <Button Content="Cancel"
+                        Width="90"
+                        Click="OnCancelClicked"/>
+                <Button Content="Log Effort"
+                        Width="110"
+                        Background="#5B6FE8"
+                        Foreground="White"
+                        Click="OnLogEffortClicked"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>

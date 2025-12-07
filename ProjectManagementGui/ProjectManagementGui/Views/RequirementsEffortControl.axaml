@@ -2,10 +2,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:ProjectManagementGui.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="ProjectManagementGui.Views.RequirementsEffortControl">
+             x:Class="ProjectManagementGui.Views.RequirementsEffortControl"
+             x:DataType="vm:RequirementsEffortViewModel">
       <Grid Margin="20">
     <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
@@ -104,6 +107,8 @@
 
             <!-- Log Effort Link -->
             <Button Content="Log Effort"
+                    Tag="User Authentication"
+                    Click="LogEffort_Click"
                     Background="Transparent"
                     BorderThickness="0"
                     Foreground="#5B6FE8"
@@ -172,6 +177,8 @@
 
             <!-- Log Effort Link -->
             <Button Content="Log Effort"
+                    Tag="Product Catalog"
+                    Click="LogEffort_Click"
                     Background="Transparent"
                     BorderThickness="0"
                     Foreground="#5B6FE8"
@@ -251,6 +258,8 @@
 
             <!-- Log Effort Link -->
             <Button Content="Log Effort"
+                    Tag="Sub-second page load time"
+                    Click="LogEffort_Click"
                     Background="Transparent"
                     BorderThickness="0"
                     Foreground="#5B6FE8"
@@ -264,5 +273,23 @@
         </Border>
       </Grid>
     </StackPanel>
+
+    <!-- Latest Effort Summary -->
+    <Border Grid.Row="3"
+            Background="#F8FAFC"
+            BorderBrush="#E2E8F0"
+            BorderThickness="1"
+            CornerRadius="8"
+            Padding="20">
+      <StackPanel Spacing="4">
+        <TextBlock Text="Latest Effort Log"
+                   FontSize="16"
+                   FontWeight="SemiBold"
+                   Foreground="#1F2937"/>
+        <TextBlock Text="{Binding LastEffortSummary}"
+                   FontSize="13"
+                   Foreground="#475569"/>
+      </StackPanel>
+    </Border>
   </Grid>
 </UserControl>
