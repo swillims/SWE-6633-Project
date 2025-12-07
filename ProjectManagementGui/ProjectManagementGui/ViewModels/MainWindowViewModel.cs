@@ -74,10 +74,7 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             Title = ProjectListViewModel.SelectedProject.Title;
             ProjectOwner = ProjectListViewModel.SelectedProject.Owner;
-<<<<<<< Updated upstream
-=======
             GeneralInfoViewModel.OnChangeProject(ProjectListViewModel.SelectedProject);
->>>>>>> Stashed changes
         }
     }
 }
