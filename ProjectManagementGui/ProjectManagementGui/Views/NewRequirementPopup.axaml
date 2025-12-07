@@ -1,0 +1,137 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ProjectManagementGui.ViewModels"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ProjectManagementGui.Views.NewRequirementPopup"
+             x:DataType="vm:NewRequirementViewModel"
+             Width="420"
+             Height="280">
+
+	<!-- x:Class="ProjectManagementGui.Views.NewRequirementPopup" -->
+    
+    <UserControl.Styles>
+        <!-- TextBox Style -->
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="#2D2D30"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#3F3F46"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style Selector="TextBox:focus">
+            <Setter Property="BorderBrush" Value="#4C4CFF"/>
+        </Style>
+
+        <Style Selector="TextBox:pointerover">
+            <Setter Property="BorderBrush" Value="#505050"/>
+        </Style>
+
+        <!-- Label Style -->
+        <Style Selector="TextBlock.label">
+            <Setter Property="Foreground" Value="#E0E0E0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Margin" Value="0,0,0,6"/>
+        </Style>
+
+        <!-- Cancel Button Style -->
+        <Style Selector="Button.cancel">
+            <Setter Property="Background" Value="#3C3C3C"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style Selector="Button.cancel:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#4A4A4A"/>
+        </Style>
+
+        <Style Selector="Button.cancel:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#2A2A2A"/>
+        </Style>
+
+        <!-- Create Button Style -->
+        <Style Selector="Button.create">
+            <Setter Property="Background" Value="#4C4CFF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Cursor" Value="Hand"/> 
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style Selector="Button.create:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#5A5AFF"/>
+        </Style>
+
+        <Style Selector="Button.create:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#3838CC"/>
+        </Style>
+
+        <Style Selector="Button.create:disabled /template/ ContentPresenter">
+            <Setter Property="Background" Value="#3C3C3C"/>
+            <Setter Property="Foreground" Value="#808080"/>
+        </Style>
+    </UserControl.Styles>
+    
+    <Border CornerRadius="12"
+            Background="#2B2B2B">
+        <Grid Margin="24" RowDefinitions="Auto,*,Auto">
+            <!-- Header -->
+            <TextBlock Grid.Row="0"
+                       Text="New Requirement"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       Margin="0,0,0,24"/>
+
+            <!-- Input Fields -->
+            <StackPanel Grid.Row="1" Spacing="20">
+                <!-- Project Name -->
+                <StackPanel>
+                    <TextBlock Classes="label" Text="Requirement Name"/>
+                    <TextBox Text="{Binding ProjectName}"
+                             Watermark="x"
+                             Height="36"/>
+                </StackPanel>
+
+                <!-- Project Owner -->
+                <StackPanel>
+                    <TextBlock Classes="label" Text="Requirement Description"/>
+                    <TextBox Text="{Binding ProjectOwner}"
+                             Watermark="System shall do x"
+                             Height="36"/>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Buttons -->
+            <StackPanel Grid.Row="2"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Spacing="12"
+                        Margin="0,24,0,0">
+                <Button Classes="cancel"
+                        Content="Cancel"
+                        Command="{Binding Cancel}"
+                        Width="80"
+                        Height="36"/>
+                <Button Classes="create"
+                        Content="Create"
+                        Command="{Binding Create}"
+                        Width="80"
+                        Height="36"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,19 +1,26 @@
 <UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:views="using:ProjectManagementGui.Views"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:vm="using:ProjectManagementGui.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="ProjectManagementGui.Views.RequirementsEffortControl">
+             x:Class="ProjectManagementGui.Views.RequirementsEffortControl"
+			 x:DataType="vm:RequirementsEffortViewModel"
+			 >
+	<ScrollViewer VerticalScrollBarVisibility="Visible">
       <Grid Margin="20">
+
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
-
+		  
     <!-- Header with Add Button -->
     <Grid Grid.Row="0" Margin="0 0 0 20">
       <Button Content="+ Add Requirement"
+			  Command="{Binding NewRequirement}"
               Background="#5B6FE8"
               Foreground="White"
               Padding="16 8"
@@ -264,5 +271,8 @@
         </Border>
       </Grid>
     </StackPanel>
-  </Grid>
+	
+		  <views:NewRequirementPopup DataContext="{Binding NewRequirementViewModel}" IsVisible="{Binding IsVisible}" />
+	  </Grid>
+	</ScrollViewer>
 </UserControl>

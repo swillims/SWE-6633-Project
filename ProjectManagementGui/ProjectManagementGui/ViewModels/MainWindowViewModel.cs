@@ -39,7 +39,7 @@ public partial class MainWindowViewModel : ViewModelBase
         
         ProjectListViewModel = new ProjectListViewModel(ShowNewProjectPopup,OnProjectSelected);
         GeneralInfoViewModel = new GeneralInfoViewModel();
-        RequirementsEffortViewModel = new RequirementsEffortViewModel();
+        RequirementsEffortViewModel = new RequirementsEffortViewModel(CreateProject);
         DashboardViewModel = new DashboardViewModel();
         NewProjectPopupViewModel = new NewProjectPopupViewModel(CreateProject);
     }
@@ -64,6 +64,8 @@ public partial class MainWindowViewModel : ViewModelBase
             ProjectOwner = ProjectListViewModel.SelectedProject.Owner;
             ProjectItemModel.currentProject = ProjectListViewModel.SelectedProject;
             //System.Diagnostics.Debug.WriteLine(ProjectItemModel.currentProject.Name);
+            Title = ProjectItemModel.currentProject.Name;
+            ProjectOwner = ProjectItemModel.currentProject.Owner;
         }
     }
 }
