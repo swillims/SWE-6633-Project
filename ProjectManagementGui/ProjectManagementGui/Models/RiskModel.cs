@@ -11,13 +11,9 @@ public class RiskModel
     public string Description { get; private set; }
     public Status RiskStatus { get; set; }
     
-    public int Id { get; private set; }
-    private static int _count = 0;
-    
     public RiskModel(string description)
     {
         Description = description;
         RiskStatus = Status.Open;
-        Id = _count++;
     }
 }

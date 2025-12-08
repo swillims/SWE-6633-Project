@@ -32,9 +32,4 @@ public class RiskViewModel : ReactiveObject
         Description = _riskModel.Description;
         Status = (int)_riskModel.RiskStatus;
     }
-
-    public int GetId()
-    {
-        return _riskModel.Id;
-    }
 }

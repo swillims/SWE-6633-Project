@@ -1,10 +1,14 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ProjectManagementGui.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="ProjectManagementGui.Views.RequirementsEffortControl">
-      <Grid Margin="20">
+             x:Class="ProjectManagementGui.Views.RequirementsEffortControl"
+             x:DataType="vm:RequirementsEffortViewModel">
+  
+  
+  <Grid Margin="20">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
@@ -13,13 +17,33 @@
 
     <!-- Header with Add Button -->
     <Grid Grid.Row="0" Margin="0 0 0 20">
-      <Button Content="+ Add Requirement"
-              Background="#5B6FE8"
-              Foreground="White"
-              Padding="16 8"
-              CornerRadius="4"
-              FontWeight="SemiBold"
-              HorizontalAlignment="Right"/>
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+        <ComboBox Width="140"
+                  FontWeight="Bold"
+                  SelectedIndex="{Binding SelectedIndex}"
+                  FontSize="12"
+                  VerticalAlignment="Center"
+                  Margin="12,0,12,0">
+          <ComboBoxItem Content="Functional"/>
+          <ComboBoxItem Content="Non-Functional"/>
+        </ComboBox>
+        <TextBox Text="{Binding Title}"
+                 Watermark="Requirement Title"
+                 FontSize="16"
+                 FontWeight="Bold"
+                 Foreground="Black"
+                 Margin="0,0,12,0"
+                 Height="12"
+                 Width="300"/>
+        <Button Content="+ Add Requirement"
+                Background="#5B6FE8"
+                Foreground="White"
+                Padding="16 8"
+                CornerRadius="4"
+                FontWeight="SemiBold"
+                HorizontalAlignment="Right"
+                Command="{Binding AddRequirement}"/>
+      </StackPanel>
     </Grid>
 
     <!-- Functional Requirements Section -->
@@ -30,239 +54,288 @@
                  Margin="0 0 0 16"
                  Foreground="#1F2937"/>
       
-      <Grid ColumnDefinitions="*,*" RowDefinitions="Auto">
-        <Grid.Styles>
-          <Style Selector="Grid > Border">
-            <Setter Property="Margin" Value="0 0 16 0"/>
-          </Style>
-          <Style Selector="Grid > Border:nth-last-child(1)">
-            <Setter Property="Margin" Value="0"/>
-          </Style>
-        </Grid.Styles>
-
-        <!-- User Authentication Card -->
-        <Border Grid.Column="0"
-                Background="White"
-                BorderBrush="#E5E7EB"
-                BorderThickness="1"
-                CornerRadius="8"
-                Padding="20"
-                BoxShadow="0 1 2 0 #10000000">
-          <StackPanel>
-            <!-- Header -->
-            <Grid Margin="0 0 0 16" ColumnDefinitions="*,Auto,Auto">
-              <StackPanel Grid.Column="0" Spacing="4">
-                <TextBlock Text="User Authentication"
-                           FontSize="15"
-                           FontWeight="SemiBold"
-                           Foreground="#1F2937"/>
-                <Border Background="#DBEAFE"
-                        CornerRadius="4"
-                        Padding="8 2"
-                        HorizontalAlignment="Left">
-                  <TextBlock Text="FUNCTIONAL"
-                             FontSize="11"
+      <ItemsControl ItemsSource="{Binding FunctionalRequirements}">
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <WrapPanel Orientation="Horizontal"/>
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <Border Background="White"
+                    BorderBrush="#E5E7EB"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Padding="20"
+                    BoxShadow="0 1 2 0 #10000000"
+                    Width="420"
+                    Margin="0 0 16 16">
+              <StackPanel>
+                <!-- Header -->
+                <Grid Margin="0 0 0 16" ColumnDefinitions="*,Auto,Auto">
+                  <StackPanel Grid.Column="0" Spacing="4">
+                    <TextBlock Text="{Binding Title}"
+                               FontSize="15"
+                               FontWeight="SemiBold"
+                               Foreground="#1F2937"/>
+                    <Border Background="#DBEAFE"
+                            CornerRadius="4"
+                            Padding="8 2"
+                            HorizontalAlignment="Left">
+                      <TextBlock Text="FUNCTIONAL"
+                                 FontSize="11"
+                                 FontWeight="SemiBold"
+                                 Foreground="#1E40AF"/>
+                    </Border>
+                  </StackPanel>
+                  <TextBlock Grid.Column="1"
+                             Text="{Binding TotalHours, StringFormat='{}{0} hrs'}"
+                             FontSize="14"
                              FontWeight="SemiBold"
-                             Foreground="#1E40AF"/>
-                </Border>
+                             Foreground="#6B7280"
+                             VerticalAlignment="Top"
+                             Margin="0 0 12 0"/>
+                  <Button Grid.Column="2"
+                          Content="🗑"
+                          Background="Transparent"
+                          BorderThickness="0"
+                          Foreground="#EF4444"
+                          Padding="4"
+                          VerticalAlignment="Top"/>
+                </Grid>
+
+                <!-- Breakdown -->
+                <ItemsControl ItemsSource="{Binding EffortTypes}">
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <Grid ColumnDefinitions="*,Auto" Margin="0 0 0 6">
+                        <TextBlock Text="{Binding Type,  StringFormat='{}{0}:'}" 
+                                   FontSize="13" 
+                                   Foreground="#6B7280"/>
+                        <TextBlock Grid.Column="1" 
+                                   Text="{Binding Hours,  StringFormat='{}{0} hrs'}" 
+                                   FontSize="13" 
+                                   Foreground="#6B7280"/>
+                      </Grid>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <Panel>
+                  <!-- Logging Controls - Show when LogControlIsEnabled is true -->
+                  <StackPanel Orientation="Horizontal" 
+                              IsVisible="{Binding LogControlIsEnabled}"
+                              Margin="0 12 0 0">
+                    <NumericUpDown Value="{Binding Hours}"
+                                   Watermark="Hours"
+                                   FontSize="12"
+                                   Foreground="Black"
+                                   Margin="0,0,12,0"
+                                   Height="32"
+                                   Width="120"
+                                   Minimum="-999"
+                                   Maximum="999"
+                                   Increment="1"
+                                   FormatString="0"/>
+                    <ComboBox Width="180"
+                              FontWeight="Bold"
+                              SelectedIndex="{Binding Effort}"
+                              FontSize="12"
+                              VerticalAlignment="Center"
+                              Margin="0,0,12,0">
+                      <ComboBoxItem Content="Requirement Analysis"/>
+                      <ComboBoxItem Content="Designing"/>
+                      <ComboBoxItem Content="Coding"/>
+                      <ComboBoxItem Content="Testing"/>
+                      <ComboBoxItem Content="Project Management"/>
+                    </ComboBox>
+                    <Button Content="✓"
+                            Height="30"
+                            Background="#10B981"
+                            Foreground="White"
+                            Padding="8 4"
+                            CornerRadius="4"
+                            FontWeight="SemiBold"
+                            Margin="0,0,6,0"
+                            VerticalContentAlignment="Center"
+                            Command="{Binding Confirm}"/>
+                    <Button Content="✕"
+                            Height="30"
+                            Background="#EF4444"
+                            Foreground="White"
+                            Padding="8 4"
+                            CornerRadius="4"
+                            FontWeight="SemiBold"
+                            VerticalContentAlignment="Center"
+                            Command="{Binding Cancel}"/>
+                  </StackPanel>
+  
+                  <!-- Log Effort Link - Show when LogControlIsEnabled is false -->
+                  <Button Content="Log Effort"
+                          Background="Transparent"
+                          BorderThickness="0"
+                          Foreground="#5B6FE8"
+                          FontSize="13"
+                          FontWeight="SemiBold"
+                          Padding="0"
+                          HorizontalAlignment="Left"
+                          Margin="0 12 0 0"
+                          Cursor="Hand"
+                          IsVisible="{Binding !LogControlIsEnabled}"
+                          Command="{Binding LogEffort}"/>
+                </Panel>
               </StackPanel>
-              <TextBlock Grid.Column="1"
-                         Text="60 hrs"
-                         FontSize="14"
-                         FontWeight="SemiBold"
-                         Foreground="#6B7280"
-                         VerticalAlignment="Top"
-                         Margin="0 0 12 0"/>
-              <Button Grid.Column="2"
-                      Content="🗑"
-                      Background="Transparent"
-                      BorderThickness="0"
-                      Foreground="#EF4444"
-                      Padding="4"
-                      VerticalAlignment="Top"/>
-            </Grid>
-
-            <!-- Breakdown -->
-            <StackPanel Spacing="6">
-              <Grid ColumnDefinitions="*,Auto">
-                <TextBlock Text="Requirements Analysis:" FontSize="13" Foreground="#6B7280"/>
-                <TextBlock Grid.Column="1" Text="8 hrs" FontSize="13" Foreground="#6B7280"/>
-              </Grid>
-              <Grid ColumnDefinitions="*,Auto">
-                <TextBlock Text="Designing:" FontSize="13" Foreground="#6B7280"/>
-                <TextBlock Grid.Column="1" Text="16 hrs" FontSize="13" Foreground="#6B7280"/>
-              </Grid>
-              <Grid ColumnDefinitions="*,Auto">
-                <TextBlock Text="Coding:" FontSize="13" Foreground="#6B7280"/>
-                <TextBlock Grid.Column="1" Text="24 hrs" FontSize="13" Foreground="#6B7280"/>
-              </Grid>
-              <Grid ColumnDefinitions="*,Auto">
-                <TextBlock Text="Testing:" FontSize="13" Foreground="#6B7280"/>
-                <TextBlock Grid.Column="1" Text="12 hrs" FontSize="13" Foreground="#6B7280"/>
-              </Grid>
-            </StackPanel>
-
-            <!-- Log Effort Link -->
-            <Button Content="Log Effort"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Foreground="#5B6FE8"
-                    FontSize="13"
-                    FontWeight="SemiBold"
-                    Padding="0"
-                    HorizontalAlignment="Left"
-                    Margin="0 12 0 0"
-                    Cursor="Hand"/>
-          </StackPanel>
-        </Border>
-
-        <!-- Product Catalog Card -->
-        <Border Grid.Column="1"
-                Background="White"
-                BorderBrush="#E5E7EB"
-                BorderThickness="1"
-                CornerRadius="8"
-                Padding="20"
-                BoxShadow="0 1 2 0 #10000000">
-          <StackPanel>
-            <!-- Header -->
-            <Grid Margin="0 0 0 16" ColumnDefinitions="*,Auto,Auto">
-              <StackPanel Grid.Column="0" Spacing="4">
-                <TextBlock Text="Product Catalog"
-                           FontSize="15"
-                           FontWeight="SemiBold"
-                           Foreground="#1F2937"/>
-                <Border Background="#DBEAFE"
-                        CornerRadius="4"
-                        Padding="8 2"
-                        HorizontalAlignment="Left">
-                  <TextBlock Text="FUNCTIONAL"
-                             FontSize="11"
-                             FontWeight="SemiBold"
-                             Foreground="#1E40AF"/>
-                </Border>
-              </StackPanel>
-              <TextBlock Grid.Column="1"
-                         Text="30 hrs"
-                         FontSize="14"
-                         FontWeight="SemiBold"
-                         Foreground="#6B7280"
-                         VerticalAlignment="Top"
-                         Margin="0 0 12 0"/>
-              <Button Grid.Column="2"
-                      Content="🗑"
-                      Background="Transparent"
-                      BorderThickness="0"
-                      Foreground="#EF4444"
-                      Padding="4"
-                      VerticalAlignment="Top"/>
-            </Grid>
-
-            <!-- Breakdown -->
-            <StackPanel Spacing="6">
-              <Grid ColumnDefinitions="*,Auto">
-                <TextBlock Text="Requirements Analysis:" FontSize="13" Foreground="#6B7280"/>
-                <TextBlock Grid.Column="1" Text="10 hrs" FontSize="13" Foreground="#6B7280"/>
-              </Grid>
-              <Grid ColumnDefinitions="*,Auto">
-                <TextBlock Text="Coding:" FontSize="13" Foreground="#6B7280"/>
-                <TextBlock Grid.Column="1" Text="20 hrs" FontSize="13" Foreground="#6B7280"/>
-              </Grid>
-            </StackPanel>
-
-            <!-- Log Effort Link -->
-            <Button Content="Log Effort"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Foreground="#5B6FE8"
-                    FontSize="13"
-                    FontWeight="SemiBold"
-                    Padding="0"
-                    HorizontalAlignment="Left"
-                    Margin="0 12 0 0"
-                    Cursor="Hand"/>
-          </StackPanel>
-        </Border>
-      </Grid>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
     </StackPanel>
 
     <!-- Non-Functional Requirements Section -->
-    <StackPanel Grid.Row="2" Margin="0 0 0 30">
+    <StackPanel Grid.Row="2" Margin="0 0 0 30" Width="">
       <TextBlock Text="Non-Functional Requirements"
                  FontSize="18"
                  FontWeight="SemiBold"
                  Margin="0 0 0 16"
                  Foreground="#1F2937"/>
       
-      <Grid ColumnDefinitions="*,*" RowDefinitions="Auto">
-        <!-- Sub-second page load time Card -->
-        <Border Grid.Column="0"
-                Background="White"
-                BorderBrush="#E5E7EB"
-                BorderThickness="1"
-                CornerRadius="8"
-                Padding="20"
-                BoxShadow="0 1 2 0 #10000000">
-          <StackPanel>
-            <!-- Header -->
-            <Grid Margin="0 0 0 16" ColumnDefinitions="*,Auto,Auto">
-              <StackPanel Grid.Column="0" Spacing="4">
-                <TextBlock Text="Sub-second page load time"
-                           FontSize="15"
-                           FontWeight="SemiBold"
-                           Foreground="#1F2937"/>
-                <Border Background="#FEF3C7"
-                        CornerRadius="4"
-                        Padding="8 2"
-                        HorizontalAlignment="Left">
-                  <TextBlock Text="NON-FUNCTIONAL"
-                             FontSize="11"
+      <ItemsControl ItemsSource="{Binding NonFunctionalRequirements}">
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <WrapPanel Orientation="Horizontal"/>
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <Border Background="White"
+                    BorderBrush="#E5E7EB"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Padding="20"
+                    BoxShadow="0 1 2 0 #10000000"
+                    Width="420"
+                    Margin="0 0 16 16">
+              <StackPanel>
+                <!-- Header -->
+                <Grid Margin="0 0 0 16" ColumnDefinitions="*,Auto,Auto">
+                  <StackPanel Grid.Column="0" Spacing="4">
+                    <TextBlock Text="{Binding Title}"
+                               FontSize="15"
+                               FontWeight="SemiBold"
+                               Foreground="#1F2937"/>
+                    <Border Background="#FEF3C7"
+                            CornerRadius="4"
+                            Padding="8 2"
+                            HorizontalAlignment="Left">
+                      <TextBlock Text="NON-FUNCTIONAL"
+                                 FontSize="11"
+                                 FontWeight="SemiBold"
+                                 Foreground="#92400E"/>
+                    </Border>
+                  </StackPanel>
+                  <TextBlock Grid.Column="1"
+                             Text="{Binding TotalHours, StringFormat='{}{0} hrs'}"
+                             FontSize="14"
                              FontWeight="SemiBold"
-                             Foreground="#92400E"/>
-                </Border>
+                             Foreground="#6B7280"
+                             VerticalAlignment="Top"
+                             Margin="0 0 12 0"/>
+                  <Button Grid.Column="2"
+                          Content="🗑"
+                          Background="Transparent"
+                          BorderThickness="0"
+                          Foreground="#EF4444"
+                          Padding="4"
+                          VerticalAlignment="Top"/>
+                </Grid>
+
+                <!-- Breakdown -->
+                <ItemsControl ItemsSource="{Binding EffortTypes}">
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <Grid ColumnDefinitions="*,Auto" Margin="0 0 0 6">
+                        <TextBlock Text="{Binding Type, StringFormat='{}{0}:'}" 
+                                   FontSize="13" 
+                                   Foreground="#6B7280"/>
+                        <TextBlock Grid.Column="1" 
+                                   Text="{Binding Hours, StringFormat='{}{0} hrs'}" 
+                                   FontSize="13" 
+                                   Foreground="#6B7280"/>
+                      </Grid>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                
+                <Panel>
+                  <!-- Logging Controls - Show when LogControlIsEnabled is true -->
+                  <StackPanel Orientation="Horizontal" 
+                              IsVisible="{Binding LogControlIsEnabled}"
+                              Margin="0 12 0 0">
+                    <NumericUpDown Value="{Binding Hours}"
+                                   Watermark="Hours"
+                                   FontSize="12"
+                                   Foreground="Black"
+                                   Margin="0,0,12,0"
+                                   Height="32"
+                                   Width="120"
+                                   Minimum="-999"
+                                   Maximum="999"
+                                   Increment="1"
+                                   FormatString="0"/>
+                    <ComboBox Width="180"
+                              FontWeight="Bold"
+                              SelectedIndex="{Binding Effort}"
+                              FontSize="12"
+                              VerticalAlignment="Center"
+                              Margin="0,0,12,0">
+                      <ComboBoxItem Content="Requirement Analysis"/>
+                      <ComboBoxItem Content="Designing"/>
+                      <ComboBoxItem Content="Coding"/>
+                      <ComboBoxItem Content="Testing"/>
+                      <ComboBoxItem Content="Project Management"/>
+                    </ComboBox>
+                    <Button Content="✓"
+                            Height="30"
+                            Background="#10B981"
+                            Foreground="White"
+                            Padding="8 4"
+                            CornerRadius="4"
+                            FontWeight="SemiBold"
+                            Margin="0,0,6,0"
+                            VerticalContentAlignment="Center"
+                            Command="{Binding Confirm}"/>
+                    <Button Content="✕"
+                            Height="30"
+                            Background="#EF4444"
+                            Foreground="White"
+                            Padding="8 4"
+                            CornerRadius="4"
+                            FontWeight="SemiBold"
+                            VerticalContentAlignment="Center"
+                            Command="{Binding Cancel}"/>
+                  </StackPanel>
+  
+                  <!-- Log Effort Link - Show when LogControlIsEnabled is false -->
+                  <Button Content="Log Effort"
+                          Background="Transparent"
+                          BorderThickness="0"
+                          Foreground="#5B6FE8"
+                          FontSize="13"
+                          FontWeight="SemiBold"
+                          Padding="0"
+                          HorizontalAlignment="Left"
+                          Margin="0 12 0 0"
+                          Cursor="Hand"
+                          IsVisible="{Binding !LogControlIsEnabled}"
+                          Command="{Binding LogEffort}"/>
+                </Panel>
               </StackPanel>
-              <TextBlock Grid.Column="1"
-                         Text="45 hrs"
-                         FontSize="14"
-                         FontWeight="SemiBold"
-                         Foreground="#6B7280"
-                         VerticalAlignment="Top"
-                         Margin="0 0 12 0"/>
-              <Button Grid.Column="2"
-                      Content="🗑"
-                      Background="Transparent"
-                      BorderThickness="0"
-                      Foreground="#EF4444"
-                      Padding="4"
-                      VerticalAlignment="Top"/>
-            </Grid>
-
-            <!-- Breakdown -->
-            <StackPanel Spacing="6">
-              <Grid ColumnDefinitions="*,Auto">
-                <TextBlock Text="Coding:" FontSize="13" Foreground="#6B7280"/>
-                <TextBlock Grid.Column="1" Text="30 hrs" FontSize="13" Foreground="#6B7280"/>
-              </Grid>
-              <Grid ColumnDefinitions="*,Auto">
-                <TextBlock Text="Testing:" FontSize="13" Foreground="#6B7280"/>
-                <TextBlock Grid.Column="1" Text="15 hrs" FontSize="13" Foreground="#6B7280"/>
-              </Grid>
-            </StackPanel>
-
-            <!-- Log Effort Link -->
-            <Button Content="Log Effort"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Foreground="#5B6FE8"
-                    FontSize="13"
-                    FontWeight="SemiBold"
-                    Padding="0"
-                    HorizontalAlignment="Left"
-                    Margin="0 12 0 0"
-                    Cursor="Hand"/>
-          </StackPanel>
-        </Border>
-      </Grid>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
     </StackPanel>
   </Grid>
 </UserControl>

@@ -6,6 +6,8 @@ namespace ProjectManagementGui.ViewModels;
 
 public class DashboardViewModel : ViewModelBase
 {
+    private ProjectViewModel SelectedProject;
+    
     private int _totalHours;
 
     public int TotalHours
@@ -52,6 +54,34 @@ public class DashboardViewModel : ViewModelBase
         }
 
         TotalHours = 135;
+    }
+
+    public void OnUpdateTotalHours()
+    {
+        if(SelectedProject == null)
+            return;
+        Console.WriteLine("OnUpdateTotalHours");
+        
+        int totalHours = 0;
+        
+        foreach (RequirementViewModel requirementViewModel in SelectedProject.FunctionalRequirements)
+        {
+            totalHours += requirementViewModel.TotalHours;
+        }
+        
+        foreach (RequirementViewModel requirementViewModel in SelectedProject.NonFunctionalRequirements)
+        {
+            totalHours += requirementViewModel.TotalHours;
+        }
+        
+        TotalHours = totalHours;
+    }
+
+    public void OnChangeProject(ProjectViewModel project)
+    {
+        SelectedProject =  project;
+
+        OnUpdateTotalHours();
     }
 }
 

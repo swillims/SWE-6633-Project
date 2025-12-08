@@ -11,6 +11,9 @@ public class ProjectViewModel(string projectName,  string projectOwner, string d
     public ObservableCollection<string> TeamMembers { get; } = [];
     public ObservableCollection<RiskViewModel> Risks { get; }= [];
     
+    public ObservableCollection<RequirementViewModel> FunctionalRequirements { get; set; } = [];
+    public ObservableCollection<RequirementViewModel> NonFunctionalRequirements { get; set; } = [];
+    
     private string _title = projectName;
     public string Title
     {
